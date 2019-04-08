@@ -1,0 +1,113 @@
+
+.form {
+    max-width: 400px;
+    margin: 2rem auto 2rem auto;
+    border-radius: 5px;
+    padding:20px;
+    background-color: #f8f9fa;
+    box-shadow: 5px 5px 15px 5px #000000;
+
+}
+
+@media screen and (max-width: 600px){
+    .form {
+        max-width: 300px;
+    }
+}
+
+.form ul{
+    list-style:none;
+    padding:0;
+    margin:0;
+}
+.form li{
+    display: block;
+    padding: 9px;
+    margin-bottom: 10px;
+    margin-top: 30px;
+    border-radius: 3px;
+}
+.form li:last-child{
+    border:none;
+    margin-bottom: 0;
+    text-align: center;
+}
+.form li > label{
+    display: block;
+    float: left;
+    margin-top: -25px;
+    height: 23px;
+    padding: 2px 5px 2px 5px;
+    color: black;
+    font-size: 14px;
+    overflow: hidden;
+
+}
+.form input[type="text"],
+.form select
+{
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    width: 100%;
+    display: block;
+    outline: none;
+    height: 25px;
+    line-height: 25px;
+    font-size: 16px;
+    padding: 0;
+    background-color: rgba(0,0,0,0.03);
+    border: 1px solid lightgrey;
+
+}
+.form input[type="text"]:focus,
+.form select:focus {
+    background-color: #ffffe6
+}
+.form li > span{
+    background: #7618AA;
+    display: block;
+    padding: 3px;
+    margin: 0 -9px -9px -9px;
+    text-align: center;
+    color: white;
+    font-size: 11px;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+
+.button {
+    background: orange;
+    border: 2px solid orange;
+    padding: 5px 15px;
+    border-radius: 5px;
+    color: white;
+    box-shadow: 5px 5px 7px -3px #000000;
+    cursor: pointer;
+
+}
+
+.button:hover {
+    background: white;
+    color: orange;
+    border: 2px solid orange;
+    box-shadow: 5px 5px 7px -3px #000000;
+}
+
+
+.error {
+    color: orange;
+    font-size: 12px;
+    margin-right: 5px;
+}
+
+.showInfo {
+    display: block;
+    margin: 20px auto;
+    text-align: center;
+    font-weight: bold;
+    color: white;
+}

@@ -1,0 +1,19 @@
+* {
+    font-family: Verdana, serif;
+    box-sizing: border-box;
+}
+
+.about {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 3rem;
+    font-size: 1rem;
+    color: white;
+}
+
+.orangeText {
+    font-weight: 700;
+    text-decoration: underline;
+    color: orange;
+    margin-right: 1rem;
+}

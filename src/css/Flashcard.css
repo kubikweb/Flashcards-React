@@ -1,0 +1,10 @@
+.carousel-control-next-icon, .carousel-control-prev-icon {
+    height: 1.5rem;
+    width: 1.5rem;
+
+
+}
+.carousel-indicators {
+    display: none;
+}
+

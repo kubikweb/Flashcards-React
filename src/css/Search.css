@@ -1,0 +1,66 @@
+
+.form   {
+    font-size: 14px;
+}
+
+.form label {
+    margin: .5rem 0;
+}
+
+.button {
+    margin: 1rem 0 0 0;
+}
+
+.button:hover {
+    color: orange;
+}
+a {
+    color: white;
+}
+
+.button a:hover {
+    color: orange;
+}
+
+.error {
+    padding-top: 1rem;
+}
+
+
+.empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 2rem;
+    justify-content: center;
+}
+@media screen and (max-width: 600px){
+    .empty {
+        max-width: 300px;
+        margin: 2rem auto;
+    }
+}
+.empty p {
+    color: white;
+}
+
+.loading {
+    width: 100%;
+    height: 100%;
+    background-color: #7618AA;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.loadingIcon {
+    background-image: url("../img/Reload-1s-200px.svg");
+    width: 200px;
+    height: 200px;
+    background-size: contain;
+
+}
+

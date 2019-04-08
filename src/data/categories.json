@@ -1,0 +1,36 @@
+{
+  "categories": [
+    {
+      "id": 0,
+      "name": ""
+    },
+    {
+      "id": 1,
+      "name": "ludzie"
+    },
+    {
+      "id": 2,
+      "name": "zwierzęta"
+    },
+    {
+      "id": 3,
+      "name": "rośliny"
+    },
+    {
+      "id": 4,
+      "name": "zakupy"
+    },
+    {
+      "id": 5,
+      "name": "zwiedzanie"
+    },
+    {
+      "id": 6,
+      "name": "dom"
+    },
+    {
+      "id": 7,
+      "name": "inne"
+    }
+  ]
+}

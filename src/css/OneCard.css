@@ -1,0 +1,66 @@
+.navCard {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-transform: capitalize;
+    color: grey;
+}
+
+.closeBtn, .deleteBtn, .editBtn {
+    font-size: 1.5rem;
+    color: #7618AA;
+    cursor: pointer;
+    background-color: #f8f9fa;
+    margin-bottom: 1rem;
+    border: .5px solid #f8f9fa;
+    padding: 5px 10px;
+    margin-left: 1px;
+
+}
+.closeBtn:hover {
+    border: .5px solid #7618AA;
+    border-radius: 5px;
+}
+.deleteBtn {
+    color: orangered;
+    font-size: 1.3rem;
+
+}
+
+.deleteBtn:hover {
+    color: red;
+    background-color: #f8f9fa;
+    border: .5px solid red;
+}
+.editBtn {
+    color: green;
+
+}
+.editBtn:hover {
+    border: .5px solid green;
+    border-radius: 5px;
+}
+.icons {
+    display: flex;
+    justify-content: flex-end;
+}
+.showTrans {
+    margin-bottom: 1.8rem;
+    padding: 5px 15px;
+}
+
+.form {
+    font-size: 14px;
+}
+.form p{
+    font-weight: 700;
+}
+
+.form span {
+    font-weight: normal;
+}
+
+.form .plWord, .form .forWord  {
+    color: orangered;
+    font-weight: 700;
+}
