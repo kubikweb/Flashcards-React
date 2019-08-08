@@ -29,5 +29,16 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "description": "My project \"FlashcardsApp - React\" was created during Coders Lab course. This is my final project.",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kamila-kubik/Flashcards-React.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kamila-kubik/Flashcards-React/issues"
+  }
 }
