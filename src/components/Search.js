@@ -83,11 +83,11 @@ class Search extends Component {
             } else {
                 if (languages === ""){
                 } else {
-                    db.collection(languages).where("pl", "==", word)
+                    db.collection(languages).where("plLower", "==", word.toLowerCase())
                         .get()
                         .then(querySnapshot => {
                             if (querySnapshot.empty === true){
-                                db.collection(languages).where("translate", "==", word)
+                                db.collection(languages).where("transLower", "==", word.toLowerCase())
                                     .get()
                                     .then(querySnapshot => {
                                         if (querySnapshot.empty === true) {

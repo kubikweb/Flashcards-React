@@ -83,6 +83,8 @@ class OneCard extends Component {
             translate: newForWord,
             inUse: newInUse,
             inUseTranslate: newInUseTranslate,
+            plLower: newPlWord.toLowerCase(),
+            transLower: newForWord.toLowerCase()
         })
             .then(function() {
                 console.log("Document successfully updated!");

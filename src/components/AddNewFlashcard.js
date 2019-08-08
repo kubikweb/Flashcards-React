@@ -91,6 +91,8 @@ class AddNewFlashcard extends Component {
                 "category": categories,
                 "inUse": example,
                 "inUseTranslate": exampleTranslate,
+                "plLower": plWord.toLowerCase(),
+                "transLower": forWord.toLowerCase()
             }).then(function (docRef) {
                 console.log("Document written with ID: ", docRef.id);
             }).catch(function (error) {
@@ -174,7 +176,7 @@ class AddNewFlashcard extends Component {
             this.setState({
                 wordExist: false,
             })
-            db.collection(valueLang).where("pl", "==", plWord)
+            db.collection(valueLang).where("plLower", "==", plWord.toLowerCase())
                 .get()
                 .then(querySnapshot => {
                     if (querySnapshot.empty !== true){
