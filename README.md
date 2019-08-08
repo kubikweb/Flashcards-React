@@ -1,3 +1,7 @@
+# 1. Update 8.08.2019
+Now it doesn't matter if you search the word in lower case letters or capital letters. 
+If you earlier saved the word in Flashcards App you can be sure that you find it.
+
 # FlashcardsApp - React
 My project "FlashcardsApp - React" was created during Coders Lab course. This is my final project.
  
