@@ -1,5 +1,5 @@
 # Update 08.2019
-1. I added to each card a timer in learning section and number of each card. Now you will know how many flashcards is in a database. 
+1. I added to each card a timer in learning section and number of each card. Now you will know how many flashcards are in a database. 
 2. Now it doesn't matter if you search the word in lower case letters or capital letters. 
 If you earlier saved the word in Flashcards App you can be sure that you find it.
 
