@@ -44,8 +44,8 @@ const About = () => {
         <h6><span className="orangeText">Ucz się</span><FontAwesomeIcon icon="book-reader"/></h6>
         <p>
             Moduł związany z uczeniem polega na wyborze odpowiedniego języka, po kliknięciu przycisku Szukaj pojawią się fiszki zapisane wcześniej
-            przez użytkowanika w bazie danych. Będą one wyświetlane w formie slidów zmieniających się co 5 sekund. Użytkownik ma też możliwość samodzielnie przejść
-            do następnej fiszki przed upływem 5 sekund.
+            przez użytkowanika w bazie danych. Będą one wyświetlane w formie slidów zmieniających się co 10 sekund. Użytkownik ma też możliwość samodzielnie przejść
+            do następnej fiszki przed upływem 10 sekund.
         </p>
     </div> )
 };

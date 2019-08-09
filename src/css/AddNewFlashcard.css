@@ -60,8 +60,8 @@
     border: 1px solid lightgrey;
 
 }
-.form input[type="text"]:focus,
-.form select:focus {
+.form input[type="text"]:hover,
+.form select:hover {
     background-color: #ffffe6
 }
 .form li > span{

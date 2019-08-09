@@ -64,3 +64,7 @@
     color: orangered;
     font-weight: 700;
 }
+
+.carousel-item {
+    transition: transform 1s ease-in-out, -webkit-transform 1s ease-in-out;
+}

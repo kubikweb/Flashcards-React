@@ -1,5 +1,6 @@
-# 1. Update 8.08.2019
-Now it doesn't matter if you search the word in lower case letters or capital letters. 
+# Update 08.2019
+1. I added to each card a timer in learning section and number of each card. Now you will know how much flashcards is in a database. 
+2. Now it doesn't matter if you search the word in lower case letters or capital letters. 
 If you earlier saved the word in Flashcards App you can be sure that you find it.
 
 # FlashcardsApp - React

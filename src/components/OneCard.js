@@ -13,8 +13,6 @@ import ModalWindow from "./ModalWindow";
 library.add(faWindowClose, faTrashAlt, faEdit, faSave);
 
 
-
-
 class OneCard extends Component {
 
     state = {
@@ -28,11 +26,37 @@ class OneCard extends Component {
         newForWord: this.props.card.translate,
         newInUse: this.props.card.inUse,
         newInUseTranslate: this.props.card.inUseTranslate,
-        show: false
-
-
+        show: false,
+        textInterval: this.props.interval,
+        resetValue: this.props.resetValue,
 
     }
+
+    componentDidMount() {
+        this.interval = setInterval(() => {
+            if (this.state.textInterval === 0) {
+                this.setState({
+                    textInterval: this.props.initialValue,
+                })
+            }
+            this.setState({
+                textInterval: this.state.textInterval - 1,
+            })
+        }, 1000)
+    }
+
+    resetTimer = () => {
+        this.setState({
+            textInterval: this.props.initialValue,
+        });
+
+    }
+
+
+    componentWillUnmount(){
+        clearInterval(this.interval)
+    }
+
 
     handleShowModal = () => {
         this.setState({ show: true });
@@ -105,14 +129,16 @@ class OneCard extends Component {
 
     }
     render () {
-        const {icons} = this.props;
+        const {icons, number, lenghtArr, learn} = this.props;
         const {showButton, active, closeOne, edit, editButton, newPlWord, card,
-            newForWord, newInUse, newInUseTranslate, show} = this.state;
+            newForWord, newInUse, newInUseTranslate, show, textInterval} = this.state;
         return (
             <>
                 {closeOne ? null : <div className="form" id={card.id} style={{border: "1px solid black"}}>
                     <div className="navCard">
                         <p>{card.category}</p>
+                        <p>{number}/{lenghtArr}</p>
+                        {learn && <p>{textInterval >=10 ? `00:${textInterval}`: `00:0${textInterval}`}</p>}
                         {icons ? <div className="icons">
                             <button className="editBtn" onClick={this.handleEdit}>{editButton}</button>
                             <Button className="deleteBtn" onClick={this.handleShowModal}><FontAwesomeIcon icon="trash-alt"/></Button>
