@@ -118,7 +118,7 @@ class Search extends Component {
 
                                 this.setState({
                                     find: true,
-                                    obj: [...this.state.arr, ...newArr],
+                                    arr: [...this.state.arr, ...newArr],
                                     isEmptyOne: null,
                                     isEmptyAll: null,
                                     // arr: [],
@@ -137,7 +137,7 @@ class Search extends Component {
 
                             this.setState({
                                 find: true,
-                                obj: [...this.state.arr, ...newArr],
+                                arr: [...this.state.arr, ...newArr],
                                 isEmptyAll: null,
                                 isEmptyOne: null,
                                 // arr: [],
