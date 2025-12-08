@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Categories from "./Categories";
 import Languages from "./Languages";
+import { collection, addDoc, query, where, getDocs } from "firebase/firestore";
 import {db} from "../firebase/firebase";
 import "../css/AddNewFlashcard.css";
 import ModalWindow from "./ModalWindow";
@@ -79,44 +80,47 @@ class AddNewFlashcard extends Component {
 
     }
 
-    handleSubmit = (e)=> {
+    handleSubmit = async (e) => {
         const {plWord, forWord, languages, categories, example, exampleTranslate} = this.state;
         e.preventDefault();
         const validation = this.formValidation();
         if (validation.correct) {
-            db.collection(languages).add({
-                "language": languages,
-                "pl": plWord,
-                "translate": forWord,
-                "category": categories,
-                "inUse": example,
-                "inUseTranslate": exampleTranslate,
-                "plLower": plWord.toLowerCase(),
-                "transLower": forWord.toLowerCase()
-            }).then(function (docRef) {
-                console.log("Document written with ID: ", docRef.id);
-            }).catch(function (error) {
-                console.error("Error adding document: ", error);
-            });
-            this.setState({
-                plWord: "",
-                forWord: "",
-                example: "",
-                languages: "",
-                categories: "",
-                exampleTranslate: "",
-                wordExist: "",
-                showInfo: `GRATULACJE! Fiszka została dodana do bazy danych.`,
+            try {
+                const docRef = await addDoc(collection(db, languages), {
+                    "language": languages,
+                    "pl": plWord,
+                    "translate": forWord,
+                    "category": categories,
+                    "inUse": example,
+                    "inUseTranslate": exampleTranslate,
+                    "plLower": plWord.toLowerCase(),
+                    "transLower": forWord.toLowerCase()
+                });
 
-                errors:{
-                    plWord: false,
-                    forWord: false,
-                    example: false,
-                    languages: false,
-                    categories: false,
-                    exampleTranslate: false,
-                }
-            });
+                console.log("Document written with ID: ", docRef.id);
+
+                this.setState({
+                    plWord: "",
+                    forWord: "",
+                    example: "",
+                    languages: "",
+                    categories: "",
+                    exampleTranslate: "",
+                    wordExist: "",
+                    showInfo: `GRATULACJE! Fiszka została dodana do bazy danych.`,
+
+                    errors:{
+                        plWord: false,
+                        forWord: false,
+                        example: false,
+                        languages: false,
+                        categories: false,
+                        exampleTranslate: false,
+                    }
+                });
+            } catch (error) {
+                console.error("Error adding document: ", error);
+            }
         } else {
             this.setState({
                 wordExist: false,
@@ -153,7 +157,7 @@ class AddNewFlashcard extends Component {
         }
     }
 
-    handleCheck = (e) => {
+    handleCheck = async (e) => {
         const {plWord} = this.state;
         const valueLang = e.target.value;
         if (plWord.length === 0) {
@@ -176,31 +180,35 @@ class AddNewFlashcard extends Component {
             this.setState({
                 wordExist: false,
             })
-            db.collection(valueLang).where("plLower", "==", plWord.toLowerCase())
-                .get()
-                .then(querySnapshot => {
-                    if (querySnapshot.empty !== true){
-                        this.setState({
-                            wordExist: true,
-                            showModal: true,
-                            errors: {
-                                languages: false,
-                                plWord: false
-                            }
-                        })
-                    } else {
-                        this.setState({
-                            errors: {
-                                languages: false,
-                                plWord: false
-                            }
-                        })
-                    }
-                })
+            
+            try {
+                const q = query(
+                    collection(db, valueLang), 
+                    where("plLower", "==", plWord.toLowerCase())
+                );
+                const querySnapshot = await getDocs(q);
+                
+                if (!querySnapshot.empty) {
+                    this.setState({
+                        wordExist: true,
+                        showModal: true,
+                        errors: {
+                            languages: false,
+                            plWord: false
+                        }
+                    })
+                } else {
+                    this.setState({
+                        errors: {
+                            languages: false,
+                            plWord: false
+                        }
+                    })
+                }
+            } catch (error) {
+                console.error("Error checking document: ", error);
+            }
         }
-
-
-
     }
 
     handleCloseModal =() => {

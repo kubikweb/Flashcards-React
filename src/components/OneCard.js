@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { doc, deleteDoc, updateDoc } from "firebase/firestore";
 import {db} from "../firebase/firebase";
 import Button from 'react-bootstrap/Button';
 import "../css/Search.css";
@@ -27,36 +28,7 @@ class OneCard extends Component {
         newInUse: this.props.card.inUse,
         newInUseTranslate: this.props.card.inUseTranslate,
         show: false,
-        textInterval: this.props.interval,
-        resetValue: this.props.resetValue,
-
     }
-
-    componentDidMount() {
-        this.interval = setInterval(() => {
-            if (this.state.textInterval === 0) {
-                this.setState({
-                    textInterval: this.props.initialValue,
-                })
-            }
-            this.setState({
-                textInterval: this.state.textInterval - 1,
-            })
-        }, 1000)
-    }
-
-    resetTimer = () => {
-        this.setState({
-            textInterval: this.props.initialValue,
-        });
-
-    }
-
-
-    componentWillUnmount(){
-        clearInterval(this.interval)
-    }
-
 
     handleShowModal = () => {
         this.setState({ show: true });
@@ -81,43 +53,41 @@ class OneCard extends Component {
 
     };
 
-    handleDelete = (e) => {
+    handleDelete = async (e) => {
         const {card} = this.state;
         this.setState({
             closeOne: !this.props.closeOne,
             show: false
         });
 
-        db.collection(card.language).doc(card.id).delete()
-            .then(function() {
+        try {
+            await deleteDoc(doc(db, card.language, card.id));
             console.log("Document successfully deleted!");
-        }).catch(function(error) {
+        } catch(error) {
             console.error("Error removing document: ", error);
-        });
+        }
     }
 
-    handleEdit = (e) => {
+    handleEdit = async (e) => {
         const {card, newPlWord, newForWord, newInUse, newInUseTranslate} = this.state;
         this.setState({
             edit: !this.state.edit,
             editButton: !this.state.edit ? <FontAwesomeIcon icon="save"/> : <FontAwesomeIcon icon="edit"/>,
         });
-        db.collection(card.language).doc(card.id).update({
-            pl: newPlWord,
-            translate: newForWord,
-            inUse: newInUse,
-            inUseTranslate: newInUseTranslate,
-            plLower: newPlWord.toLowerCase(),
-            transLower: newForWord.toLowerCase()
-        })
-            .then(function() {
-                console.log("Document successfully updated!");
-            }).catch(function(error) {
-            console.error("Error removing document: ", error);
-        });
 
-
-
+        try {
+            await updateDoc(doc(db, card.language, card.id), {
+                pl: newPlWord,
+                translate: newForWord,
+                inUse: newInUse,
+                inUseTranslate: newInUseTranslate,
+                plLower: newPlWord.toLowerCase(),
+                transLower: newForWord.toLowerCase()
+            });
+            console.log("Document successfully updated!");
+        } catch (error) {
+            console.error("Error updating document: ", error);
+        }
     }
 
     handleChange = (e) => {
@@ -129,16 +99,19 @@ class OneCard extends Component {
 
     }
     render () {
-        const {icons, number, lenghtArr, learn} = this.props;
+        const {icons, number, lenghtArr, learn, timeLeft} = this.props;
         const {showButton, active, closeOne, edit, editButton, newPlWord, card,
-            newForWord, newInUse, newInUseTranslate, show, textInterval} = this.state;
+            newForWord, newInUse, newInUseTranslate, show} = this.state;
+
+        const formattedTime = timeLeft >= 10 ? `00:${timeLeft}` : `00:0${timeLeft}`;
+
         return (
             <>
                 {closeOne ? null : <div className="form" id={card.id} style={{border: "1px solid black"}}>
                     <div className="navCard">
                         <p>{card.category}</p>
                         <p>{number}/{lenghtArr}</p>
-                        {learn && <p>{textInterval >=10 ? `00:${textInterval}`: `00:0${textInterval}`}</p>}
+                        {learn && <p>{formattedTime}</p>}
                         {icons ? <div className="icons">
                             <button className="editBtn" onClick={this.handleEdit}>{editButton}</button>
                             <Button className="deleteBtn" onClick={this.handleShowModal}><FontAwesomeIcon icon="trash-alt"/></Button>
