@@ -4,6 +4,12 @@
     "ignore": [
       "asset-manifest.json",
       "**/*.map"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
     ]
   }
 }
