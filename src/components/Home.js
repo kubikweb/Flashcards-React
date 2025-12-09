@@ -11,7 +11,7 @@ library.add(faGlobeEurope, faBookReader, faThumbsUp, faRoad);
 
 
 const Home = () => {
-        return <Carousel>
+        return <Carousel prevLabel="" nextLabel="">
                 <Carousel.Item>
                     <div className="img img1">
                     <FontAwesomeIcon icon="globe-europe"/>

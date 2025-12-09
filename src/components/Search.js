@@ -4,6 +4,7 @@ import Flashcard from "./Flashcard";
 import "../css/Search.css";
 import "../css/AddNewFlashcard.css";
 import {db} from "../firebase/firebase";
+import { collection, getDocs, query, where } from 'firebase/firestore';
 import { Link } from "react-router-dom";
 
 class Search extends Component {
@@ -31,12 +32,20 @@ class Search extends Component {
         })
     };
 
-    handleSubmit = (e) => {
+    handleSubmit = async (e) => {
 
         const {word, languages} = this.state;
         const emptyAll = word.length === 0 && languages.length === 0;
         const emptyLang =  word.length !== 0 && languages.length === 0;
         e.preventDefault();
+
+        this.setState({
+            closeAll: false,
+            languages: "",
+            word: "",
+            arr: [],
+        })
+
         if (emptyAll||emptyLang){
             this.setState({
                 info: true,
@@ -49,96 +58,102 @@ class Search extends Component {
             this.setState ({
                 loading: true
             })
-            if (word.length === 0){
-                db.collection(languages)
-                    .get()
-                    .then(querySnapshot => {
-                        if (querySnapshot.empty === true) {
-                            this.setState({
-                                isEmptyAll: true,
-                                isEmptyOne: null,
-                                find: false,
-                                // arr: [],
-                                // word: "",
-                                info: null,
-                                loading: false,
-                            })
-                        } else {
-                            querySnapshot.forEach(doc => {
-                                let data = doc.data();
-                                data.id = doc.id;
+            try {
+                if (word.length === 0){
+                    const colRef = collection(db, languages);
+                    const querySnapshot = await getDocs(colRef);
+                    if (querySnapshot.empty === true) {
+                        this.setState({
+                            isEmptyAll: true,
+                            isEmptyOne: null,
+                            find: false,
+                            // arr: [],
+                            // word: "",
+                            info: null,
+                            loading: false,
+                        })
+                    } else {
+                        const newArr = [];
+                        querySnapshot.forEach(doc => {
+                            let data = doc.data();
+                            data.id = doc.id;
+                            newArr.push(data);
+                        });
+
+                        this.setState({
+                            find: true,
+                            arr: [...this.state.arr, ...newArr],
+                            isEmptyAll: null,
+                            isEmptyOne: null,
+                            // word: "",
+                            info: null,
+                            loading: false
+                        })
+                    }
+                } else {
+                    if (languages === ""){
+                    } else {
+                        const q1 = query(collection(db, languages), where("plLower", "==", word.toLowerCase()));
+                        const querySnapshot = await getDocs(q1);
+                        if (querySnapshot.empty === true){
+                            const q2 = query(collection(db, languages), where("transLower", "==", word.toLowerCase()));
+                            const querySnapshot2 = await getDocs(q2);
+                            if (querySnapshot2.empty === true) {
                                 this.setState({
-                                    find: true,
-                                    arr: this.state.arr.concat(data),
+                                    isEmptyOne: true,
+                                    find: false,
                                     isEmptyAll: null,
-                                    isEmptyOne: null,
+                                    // arr: [],
                                     // word: "",
                                     info: null,
                                     loading: false
                                 })
-
-                            });
-                        }
-                    });
-            } else {
-                if (languages === ""){
-                } else {
-                    db.collection(languages).where("plLower", "==", word.toLowerCase())
-                        .get()
-                        .then(querySnapshot => {
-                            if (querySnapshot.empty === true){
-                                db.collection(languages).where("transLower", "==", word.toLowerCase())
-                                    .get()
-                                    .then(querySnapshot => {
-                                        if (querySnapshot.empty === true) {
-                                            this.setState({
-                                                isEmptyOne: true,
-                                                find: false,
-                                                isEmptyAll: null,
-                                                // arr: [],
-                                                // word: "",
-                                                info: null,
-                                                loading: false
-                                            })
-                                        } else {
-                                            querySnapshot.forEach(doc => {
-                                                let data = doc.data();
-                                                data.id = doc.id;
-                                                this.setState({
-                                                    find: true,
-                                                    obj: data,
-                                                    isEmptyOne: null,
-                                                    isEmptyAll: null,
-                                                    // arr: [],
-                                                    // word: "",
-                                                    info: null,
-                                                    loading: false
-                                                })
-                                            });
-                                        }
-                                    })
                             } else {
-                                querySnapshot.forEach(doc => {
+                                const newArr = [];
+                                querySnapshot2.forEach(doc => {
                                     let data = doc.data();
                                     data.id = doc.id;
-                                    this.setState({
-                                        find: true,
-                                        obj: data,
-                                        isEmptyOne: null,
-                                        isEmptyAll: null,
-                                        // arr: [],
-                                        // word: "",
-                                        info: null,
-                                        loading: false
-                                    })
+                                    newArr.push(data);
                                 });
-                            }
-                        })
-                        .catch(function(error) {
-                            console.log("Error getting documents: ", error);
-                        });
-                }
 
+                                this.setState({
+                                    find: true,
+                                    arr: [...this.state.arr, ...newArr],
+                                    isEmptyOne: null,
+                                    isEmptyAll: null,
+                                    // arr: [],
+                                    // word: "",
+                                    info: null,
+                                    loading: false
+                                })
+                            }
+                        } else {
+                            const newArr = [];
+                            querySnapshot.forEach(doc => {
+                                let data = doc.data();
+                                data.id = doc.id;
+                                newArr.push(data);
+                            });
+
+                            this.setState({
+                                find: true,
+                                arr: [...this.state.arr, ...newArr],
+                                isEmptyAll: null,
+                                isEmptyOne: null,
+                                // arr: [],
+                                // word: "",
+                                info: null,
+                                loading: false
+                            })
+                        }
+                    }
+
+                }
+            } catch(error) {
+                console.log("Error getting documents: ", error);
+                this.setState({ 
+                    loading: false
+                });
             }
         }
 
@@ -148,8 +163,6 @@ class Search extends Component {
             closeAll: false,
             languages: "",
             word: "",
-            arr: [],
-            find: false,
 
         })
 

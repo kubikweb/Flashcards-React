@@ -7,8 +7,7 @@ import About from "./components/About"
 import './App.css';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
-import { BrowserRouter, Link } from "react-router-dom";
-const Route = require("react-router-dom").Route;
+import { BrowserRouter, Link, Routes, Route } from "react-router-dom";
 
 
 class App extends Component {
@@ -61,14 +60,16 @@ class App extends Component {
                                 <Nav id="5" className={selected === "5" ? 'nav-item bgOrange' : 'nav-item'} as={Link} to="/about" onClick={this.handleClick}>O programie</Nav>
                             </Nav>
                         </Navbar.Collapse>
-                    </Navbar>;
+                    </Navbar>
                 </header>
                 <section>
-                    <Route exact path="/" component={Home} />
-                    <Route path="/add_flashcard" component={AddNewFlashcard} />
-                    <Route path="/search" component={Search} />
-                    <Route path="/learn" component={Learn}/>
-                    <Route path="/about" component={About} />
+                    <Routes>
+                        <Route path="/" element={<Home />} />
+                        <Route path="/add_flashcard" element={<AddNewFlashcard />} />
+                        <Route path="/search" element={<Search />} />
+                        <Route path="/learn" element={<Learn />} />
+                        <Route path="/about" element={<About />} />
+                    </Routes>
                 </section>
                 <footer>
                     <div>&copy; 2019 by Kamila Kubik</div>
