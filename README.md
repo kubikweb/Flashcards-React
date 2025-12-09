@@ -10,7 +10,7 @@ My project "FlashcardsApp - React" was created during Coders Lab course. This is
 ## Used technologies
 I used React, HTML, CSS, JavaScript, Bootstrap, RWD and Firebase.
 ## Usage
-To start using this app click here: http://flashcards.kubikweb.usermd.net/ 
+To start using this app click here: https://flashcards-24c84.web.app/ 
  
 ## About
 Flashcards App is a program dedicated to Poles. The program helps in learning a foreign languages. It has 3 modules:
